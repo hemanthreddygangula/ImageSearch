@@ -4,3 +4,4 @@ log/*
 media/*
 __pycache__/
 changebg.py
+*.pickle
