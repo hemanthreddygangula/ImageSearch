@@ -1,0 +1,428 @@
+{% extends 'base.html' %}
+
+{% block title %}Image Search - Predict{% endblock %}
+
+{% block content %}
+<style>
+     /* Diamond Loader ---start */
+ .diamondCon ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diamondCon {
+  width: 200px;
+  height: 200px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: relative;
+  margin: auto;
+}
+
+.diamond {
+  display: block;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.diamond li {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  opacity: 0;
+  z-index: 100;
+  transition: 400ms ease;
+}
+
+.diamond li:nth-child(1) {
+  border-width: 20px 20px 0 20px;
+  border-color: #7AD997 transparent transparent transparent;
+  left: 0;
+  right: 0;
+  margin: auto;
+  animation: traingle1 200ms 2.2s ease, opacity 2s 2.4s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(2) {
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent #64C592;
+  left: 59px;
+  animation: traingle2 200ms 1.8s ease, opacity 2s 2.4s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(3) {
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent #54B28D;
+  right: 59px;
+  animation: traingle3 200ms 2s ease, opacity 2s 2.4s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(4) {
+  border-width: 0 20px 20px 20px;
+  border-width: 20px 20px 0 20px;
+  border-color: #7AD997 transparent transparent transparent;
+  animation: traingle4 200ms 1.6s ease, opacity 2s 2.6s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(5) {
+  border-width: 0 20px 20px 20px;
+  border-width: 20px 20px 0 20px;
+  border-color: #B4FEA5 transparent transparent transparent;
+  animation: traingle5 200ms 1.4s ease, opacity 2s 2.6s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(6) {
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent #90EF9D;
+  left: 0;
+  right: 0;
+  margin: auto;
+  animation: traingle6 200ms 1.2s ease, opacity 2s 2.6s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.diamond li:nth-child(7) {
+  border-width: 20px 20px 0 20px;
+  border-color: #C9FEAC transparent transparent transparent;
+  left: 0;
+  right: 0;
+  margin: auto;
+  animation: traingle7 200ms 1s ease, opacity 2s 2.8s ease infinite;
+  animation-fill-mode: forwards;
+}
+
+.textCon {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  line-height: 50px;
+  font-size: 28px;
+  /* font-family: Dancing Script; */
+  color: #fff;
+  opacity: 0;
+  animation: text 500ms 2.4s ease;
+  animation-fill-mode: forwards;
+}
+
+
+#loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+@keyframes traingle1 {
+  0% {
+    top: -50px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle2 {
+  0% {
+    top: -50px;
+    opacity: 0;
+  }
+  100% {
+    top: 1px;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle3 {
+  0% {
+    top: -50px;
+    opacity: 0;
+  }
+  100% {
+    top: 1px;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle4 {
+  0% {
+    right: 59px;
+    top: -33px;
+    opacity: 0;
+  }
+  100% {
+    right: 59px;
+    top: 22px;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle5 {
+  0% {
+    left: 59px;
+    top: -33px;
+    opacity: 0;
+  }
+  100% {
+    left: 59px;
+    top: 22px;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle6 {
+  0% {
+    top: -33px;
+    opacity: 0;
+  }
+  100% {
+    top: 23px;
+    opacity: 1;
+  }
+}
+
+@keyframes traingle7 {
+  0% {
+    top: -10px;
+    opacity: 0;
+  }
+  100% {
+    top: 44px;
+    opacity: 1;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes text {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    top: 70px;
+    opacity: 1;
+  }
+}
+  /* Diamond Loader ---end */
+
+
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Upload Image</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="predictionForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Select Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="datasets" class="form-label">Select Categories</label>
+                        <div id="datasetsContainer">
+                            {% for dataset in available_datasets %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="datasets" value="{{ dataset }}" id="dataset_{{ dataset }}">
+                                <label class="form-check-label" for="dataset_{{ dataset }}">
+                                    {{ dataset }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="num_results" class="form-label">Number of Results</label>
+                        <input type="number" class="form-control" id="num_results" name="num_results" value="5" min="1" max="20">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="searchButton">Search Similar Images</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-3" style="text-align:center;">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Preview</h5>
+            </div>
+            <div class="card-body" >
+                <img id="imagePreview" class="preview-image d-none">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card" id="resultsCard">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Results</h5>
+            </div>
+            <div class="card-body" style="text-align:center;">
+                <!-- Loader -->
+                <div class="loader-container" id="loaderContainer" style="display: none;"> <!-- Hidden initially -->
+                    <ul class="diamond">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <div class="textCon"> Loading images</div>
+                </div>
+                
+                <!-- Results Container -->
+                <div id="resultsContainer" style="display: none;"></div> <!-- Hidden initially -->
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Show results card and loader
+    document.getElementById('resultsCard').style.display = 'block'; // Make results card visible
+    document.getElementById('loaderContainer').style.display = 'flex';  // Show loader inside card body
+    document.getElementById('resultsContainer').style.display = 'none'; // Hide results initially
+
+    // Disable search button
+    const searchButton = document.getElementById('searchButton');
+    searchButton.disabled = true;
+    searchButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...';
+
+    const formData = new FormData(this);
+    const selectedDatasets = [];
+    document.querySelectorAll('input[name="datasets"]:checked').forEach(checkbox => {
+        selectedDatasets.push(checkbox.value);
+    });
+    formData.set('datasets', JSON.stringify(selectedDatasets));
+
+    try {
+        const response = await fetch('{% url "predict" %}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        // Hide loader and show results
+        document.getElementById('loaderContainer').style.display = 'none'; // Hide loader
+        document.getElementById('resultsContainer').style.display = 'block'; // Show results
+        
+        displayResults(data);
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('resultsContainer').style.display = 'block';
+        document.getElementById('resultsContainer').innerHTML = `
+            <div class="alert alert-danger">
+                An error occurred while processing your request.
+            </div>
+        `;
+    } finally {
+        // Re-enable search button
+        searchButton.disabled = false;
+        searchButton.innerHTML = 'Search Similar Images';
+    }
+});
+
+function displayResults(data) {
+    const container = document.getElementById('resultsContainer');
+    container.innerHTML = '';
+
+    if (data.results && Object.keys(data.results).length > 0) {
+        Object.entries(data.results).forEach(([dataset, images]) => {
+            const datasetDiv = document.createElement('div');
+            datasetDiv.className = 'mb-4 fade-in';
+
+            if (images.length > 0) {
+                images.forEach(image => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card fade-in';
+                    card.innerHTML = `
+                        <img src="${image.url}" class="preview-image">
+                        <div>
+                            <h6>${image.filename}</h6>
+                            <strong>Similarity Score:</strong> ${(image.similarity_score * 100).toFixed(2)}%
+                        </div>
+                    `;
+                    datasetDiv.appendChild(card);
+                });
+            } else {
+                datasetDiv.innerHTML += `
+                    <div class="alert alert-info">
+                        No similar images found in this category
+                    </div>
+                `;
+            }
+
+            container.appendChild(datasetDiv);
+        });
+    } else {
+        container.innerHTML = `
+            <div class="alert alert-info fade-in">
+                No results found. Try selecting different categories or uploading a different image.
+            </div>
+        `;
+    }
+}
+
+
+</script>
+{% endblock %}

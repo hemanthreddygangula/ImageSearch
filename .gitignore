@@ -1,0 +1,6 @@
+dataset/*
+dataset_*/
+log/*
+media/*
+__pycache__/
+changebg.py
