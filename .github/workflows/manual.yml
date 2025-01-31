@@ -25,7 +25,7 @@ jobs:
           # docker tag my-app:latest my-dockerhub-user/my-app:latest
           # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           # docker push my-dockerhub-user/my-app:latest
-# stopping the container and running the new container
+          # stopping the container and running the new container
           docker stop newimagesearchnewcontainer || true && docker rm newimagesearchnewcontainer || true && docker run -d -p 8001:8000 --name newimagesearchnewcontainer newimagesearchimagenew:latest
   
   # deploy:
