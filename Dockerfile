@@ -1,7 +1,7 @@
 # docker build -t image-search:latest .
 # docker run -d -p 8000:8000 --name imagesearch-container image-search
 
-# Use an official Pytho runtime as a parent image
+# Use an official Python runtime as a parent image
 FROM python:3.12
 
 # Set the working directory in the container
