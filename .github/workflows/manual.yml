@@ -21,11 +21,11 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t newimagesearchimage:latest .
+          docker build -t newimagesearchimagenew:latest .
           # docker tag my-app:latest my-dockerhub-user/my-app:latest
           # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           # docker push my-dockerhub-user/my-app:latest
-          docker run -d -p 8001:8000 --name newimagesearch newimagesearchimage:latest
+          docker run -d -p 8001:8000 --name newimagesearchnewcontainer newimagesearchimagenew:latest
   
   # deploy:
   #   needs: build
