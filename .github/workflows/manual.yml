@@ -13,11 +13,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
       
       - name: Build and push Docker image
         run: |
@@ -25,7 +25,8 @@ jobs:
           # docker tag my-app:latest my-dockerhub-user/my-app:latest
           # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           # docker push my-dockerhub-user/my-app:latest
-          docker run -d -p 8001:8000 --name newimagesearchnewcontainer newimagesearchimagenew:latest
+# stopping the container and running the new container
+          docker stop newimagesearchnewcontainer || true && docker rm newimagesearchnewcontainer || true && docker run -d -p 8001:8000 --name newimagesearchnewcontainer newimagesearchimagenew:latest
   
   # deploy:
   #   needs: build
