@@ -1,0 +1,42 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: hemanth-runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Build and push Docker image
+        run: |
+          docker build -t imagesearchimage:latest .
+          # docker tag my-app:latest my-dockerhub-user/my-app:latest
+          # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+          # docker push my-dockerhub-user/my-app:latest
+          docker run -d -p 8000:8000 --name imagesearch imagesearchimage:latest
+  
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+      
+  #     - name: Deploy Application
+  #       run: |
+  #         echo "Deploying application..."
+  #         ssh user@server 'docker pull my-dockerhub-user/my-app:latest && docker stop my-app || true && docker rm my-app || true && docker run -d --name my-app -p 80:80 my-dockerhub-user/my-app:latest'
