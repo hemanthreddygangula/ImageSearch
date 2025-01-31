@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -21,11 +21,11 @@ jobs:
       
       - name: Build and push Docker image
         run: |
-          docker build -t imagesearchimage:latest .
+          docker build -t newimagesearchimage:latest .
           # docker tag my-app:latest my-dockerhub-user/my-app:latest
           # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           # docker push my-dockerhub-user/my-app:latest
-          docker run -d -p 8000:8000 --name imagesearch imagesearchimage:latest
+          docker run -d -p 8000:8000 --name newimagesearch newimagesearchimage:latest
   
   # deploy:
   #   needs: build
